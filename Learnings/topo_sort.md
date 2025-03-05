@@ -8,12 +8,14 @@ Here's an example of a DAG:
 
 ```mermaid
 graph LR;
-    A["5"] --> B["0"];
-    A --> C["2"];
-    B --> D["3"];
-    C --> D;
-    D --> E["1"];
-    C --> E;
+    subgraph "Directed Acyclic Graph"
+        A["5"] --> B["0"];
+        A --> C["2"];
+        B --> D["3"];
+        C --> D;
+        D --> E["1"];
+        C --> E;
+    end
 ```
 
 A valid topological sort for this graph would be: 5 → 2 → 0 → 3 → 1

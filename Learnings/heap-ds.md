@@ -1,4 +1,4 @@
-# Heap and `heapq` Python implementation.
+# Heap Data Structures
 
 ##  What is Heap:
 

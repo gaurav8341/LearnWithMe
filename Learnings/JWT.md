@@ -54,7 +54,8 @@ HMACSHA256(
 ```
 
 ## What to Explore:
-See how JWT works how it stores the secret how keys are exchanged in case of key pair algos. and so on.Explore SimpleJWT code
+1. See how JWT works how it stores the secret how keys are exchanged in case of key pair algos. and so on.Explore SimpleJWT code
+2. HMAC algorithm and its inner working
 
 ## Source: 
 
