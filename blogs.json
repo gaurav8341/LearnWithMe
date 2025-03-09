@@ -1,56 +1,56 @@
 [
   {
-    "id": 1,
+    "id": "django-drf",
     "slug": "django_drf-misc",
     "title": "Django DRF Miscellaneous",
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/django_drf-misc.md",
     "date": "2025-01-01",
     "tags": ["django", "drf"],
-    "preview": "# Django Leanings\n\n1. Middleware:\n    Middleware acts as layer between the actual view code run and ..."
+    "preview": "Django Rest Framework Miscellaneous"
   },
   {
-    "id": 2,
+    "id": "nginx",
     "slug": "nginx",
     "title": "NGINX Basics",
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/nginx.md",
     "date": "2025-01-02",
     "tags": ["nginx", "server"],
-    "preview": "# NGINX\n\nNGINX is a web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache."
+    "preview": "NGINX is a web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache."
   },
   {
-    "id": 3,
+    "id": "heap-ds",
     "slug": "heap-ds",
     "title": "Heap Data Structure",
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/heap-ds.md",
     "date": "2025-01-03",
     "tags": ["heap", "data structure"],
-    "preview": "# Heap and `heapq` Python implementation.\n\n##  What is Heap:\n\nMaxHeap is a complete binary tree wher..."
+    "preview": "Heap, Heap operations and `heapq` Python implementation."
   },
   {
-    "id": 4,
+    "id": "topo_sort",
     "slug": "topo_sort",
     "title": "Topological Sort",
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/topo_sort.md",
     "date": "2025-01-04",
     "tags": ["topological sort", "algorithm"],
-    "preview": "# TOPO Sort\n\n*AI GENERATED START*\n\nA Topological Sort or TOPO Sort is used to linearly order the ver..."
+    "preview": "A Topological Sort or TOPO Sort is used to linearly order the vertices of a graph such that for every directed edge u v, vertex u comes before v in the ordering."
   },
   {
-    "id": 5,
+    "id": "jwt",
     "slug": "JWT",
     "title": "Json Web Token",
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/JWT.md",
     "date": "Unknown date",
     "tags": [],
-    "preview": "# JWT: Json Web Token\n\nJWT is open standanrd (RFC 7519) to transmit information securely between two..."
+    "preview": "Json Web Token is open standanrd (RFC 7519) to transmit information securely between two parties."
   },
   {
-    "id": 6,
+    "id": "sockets",
     "slug": "Sockets",
     "title": "Sockets",
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/Sockets.md",
     "date": "Unknown date",
     "tags": [],
-    "preview": "# Sockets"
+    "preview": "Sockets"
   }
 ]
