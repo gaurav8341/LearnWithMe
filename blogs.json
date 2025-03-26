@@ -58,7 +58,7 @@
     "tags": [],
     "active":false,
     "preview": "Sockets"
-  }
+  },
   {
     "id": "ssl_tls",
     "slug": "SSL_TLS",

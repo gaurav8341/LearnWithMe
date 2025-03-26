@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Navigate to your Git repository (replace with your actual path)
-cd ~/repos/dev_journal || exit
+cd ~/repos/LearnWithMe || exit
 
 # Add all unstaged changes
 git add .
