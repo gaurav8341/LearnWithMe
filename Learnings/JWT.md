@@ -61,4 +61,3 @@ HMACSHA256(
 
 1. (Stackoverflow)[https://stackoverflow.com/questions/66044481/is-it-secure-to-authenticate-web-socket-connections-using-jwt]
 2. (jwt.io)[https://jwt.io]
-3. 

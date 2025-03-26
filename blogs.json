@@ -6,6 +6,7 @@
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/django_drf-misc.md",
     "date": "2025-01-01",
     "tags": ["django", "drf"],
+    "active":false,
     "preview": "Django Rest Framework Miscellaneous"
   },
   {
@@ -15,6 +16,7 @@
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/nginx.md",
     "date": "2025-01-02",
     "tags": ["nginx", "server"],
+    "active":false,
     "preview": "NGINX is a web server which can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache."
   },
   {
@@ -24,6 +26,7 @@
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/heap-ds.md",
     "date": "2025-01-03",
     "tags": ["heap", "data structure"],
+    "active":true,
     "preview": "Heap, Heap operations and `heapq` Python implementation."
   },
   {
@@ -33,6 +36,7 @@
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/topo_sort.md",
     "date": "2025-01-04",
     "tags": ["topological sort", "algorithm"],
+    "active":true,
     "preview": "A Topological Sort or TOPO Sort is used to linearly order the vertices of a graph such that for every directed edge u v, vertex u comes before v in the ordering."
   },
   {
@@ -42,6 +46,7 @@
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/JWT.md",
     "date": "Unknown date",
     "tags": [],
+    "active":true,
     "preview": "Json Web Token is open standanrd (RFC 7519) to transmit information securely between two parties."
   },
   {
@@ -51,6 +56,17 @@
     "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/Sockets.md",
     "date": "Unknown date",
     "tags": [],
+    "active":false,
+    "preview": "Sockets"
+  }
+  {
+    "id": "ssl_tls",
+    "slug": "SSL_TLS",
+    "title": "SSL and TLS",
+    "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/SSL_TLS.md",
+    "date": "Unknown date",
+    "tags": [],
+    "active":false,
     "preview": "Sockets"
   }
 ]
