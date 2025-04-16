@@ -23,6 +23,17 @@ When you run `python test.py`
     3. Interpreter
         Line by line go through each bytecode instruction
 3. What is bytecode/opcode instruction?
+    what is opcode
+    one example
+    documentation links
 3. Parser internals
+    grammer 
+    pgen
+    what lexer does and how
+    what tokenizer does and how
+    what parser does and how
 4. Compiler internals
-5. Interpreter internals
+    what is ast?
+    ast to instruction
+5. Interpreter internals -- how this is different from JVM.
+6. New JIT -- what will change
