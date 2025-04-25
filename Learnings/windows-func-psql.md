@@ -19,12 +19,12 @@ SELECT depname, empno, salary, avg(salary) OVER (PARTITION BY depname) FROM emps
 
 - Window funtions are only permitted in `SELECT` list and `ORDER BY` clause of query. They are forbidden elsewhere, such as in `GROUP BY`, `HAVING` and `WHERE` clauses.As these clauses are executed first
 
-- All the window functions can be found (here)[https://www.postgresql.org/docs/current/functions-window.html#FUNCTIONS-WINDOW-TABLE]
+- All the window functions can be found [here](https://www.postgresql.org/docs/current/functions-window.html#FUNCTIONS-WINDOW-TABLE)
 
 - Any built in or user defined aggregte functions can be used as window functions. Aggregate functions act as Window functions only if `**OVER**` follows the direct function call.
 
 ## Sources
 
-1. (Window Functions Tutorial)[https://www.postgresql.org/docs/current/tutorial-window.html]
-2. (Window Functions List)[https://www.postgresql.org/docs/current/functions-window.html#FUNCTIONS-WINDOW-TABLE]
-3. Window Functions Processing[https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-WINDOW]
+1. [Window Functions Tutorial](https://www.postgresql.org/docs/current/tutorial-window.html)
+2. [Window Functions List](https://www.postgresql.org/docs/current/functions-window.html#FUNCTIONS-WINDOW-TABLE)
+3. [Window Functions Processing](https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-WINDOW)
