@@ -48,8 +48,6 @@ Rather than be tightly integrated with a CPU, to reduce the chances of delaying 
 
 ### TPU v1 Architecture:
 
-
-
 ![TPU v1 Detailed Architecture](../static/images/tpu/tpu-v1-detailed-arch.webp "TPU v1 Detailed Architecture")
 
 - Instructions are sent from host by PCIe bus into an instruction buffer. 
@@ -75,8 +73,20 @@ The other instructions are alternate host memory read/write, set configuration, 
 
 ### How the heart beats:
 
+![TPU v1 Systollic Data Flow](../static/images/tpu/systollic-data-flow.png "TPU v1 Systollic Data Flow")
 
+Matrix Unit must always be busy to keep inline with Systollic Array philosophy. 
+It uses a 4-stage pipeline for these CISC instructions, where each instruction executes in a separate stage. The plan was to hide the execution of the other instructions by overlapping their execution with the `MatrixMultiply` instruction. Towards that end the `Read_weights` instruction follows decoupled-access/exceute philosophy. It does it by first sending its address first before the wights are fetched from weight memory. 
+
+As CISC architecture is being followed, where instructions dont take single cycle to execute unlike RISC. Interesting cases occur when the activationsfor one network layer must complete before the matrix multiplications of the next layer can begin; we see a “delay slot, where the matrix unit waits for explicit synchronization before safely reading from the Unified Buffer. 
+
+As reading large data from SRAM can be very power intensive, the matrix unit uses systollic way of loading data by reducing reads and writes of unified buffer. The weights are loaded from the top while data is being loaded from the left as shown above example. Given 256- element multiply accumulate flows through matrix unit in diagonal wavefront. The weights are preloaded, and take effect with the advancing wave alongside the first data of a new block. Control and data are pipelined to give the illusion that the 256 inputs are read at once, and that they instantly update one location of each of 256 accumulators. 
 
 **CISC**: CISC instructions perform multiple operation in a single instruction 
 **RISC**: RISC processors use a smaller, more basic set of instructions. These instructions are designed to be executed quickly, often within a single clock cycle
 
+### Source:
+
+
+1. [In-Datacenter Performance Analysis of a Tensor Processing Unit](https://arxiv.org/pdf/1704.04760)
+2. [Google's First Tensor Processing Unit : Architecture](https://thechipletter.substack.com/p/googles-first-tpu-architecture)

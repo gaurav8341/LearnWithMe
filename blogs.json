@@ -68,5 +68,15 @@
     "tags": [],
     "active":false,
     "preview": "Sockets"
+  },
+  {
+    "id": "tpu",
+    "slug": "tpu",
+    "title": "Tensor Processing Unit: How the Heart Works",
+    "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/tpu.md",
+    "date": "Apr 29, 2025",
+    "tags": [],
+    "active":false,
+    "preview": "Tensor Processing Unit (TPU) is a type of application-specific integrated circuit (ASIC) developed by Google specifically for accelerating machine learning workloads."
   }
 ]
