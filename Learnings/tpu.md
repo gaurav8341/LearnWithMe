@@ -6,3 +6,15 @@
 - This is good way to do vector arithematics.
 
 **THERE IS GOING TOBE ALOT OF COPY PASTE IN THIS**
+
+## Matrix multiplication in Systoliic way
+
+Consider 2 matrices of dimention 2x2. To perform the matrix multiplication in systolic way it would as shown in figure below
+
+![Systollic matrix multiplication](../static/images/tpu/systolic-mm.webp "Systollic Matrix Multiplication")
+
+It takes 4 steps to do 2x2 matrix multiplication. During starting and ending of the some of the MAC(Multiply/ Accumulate Unit) are not used.
+
+If data is fed in correct order larger matrix multiplication opertation can also be done very efficiently if data is fed in right order to Systollic arrays
+
+There is no need of 
