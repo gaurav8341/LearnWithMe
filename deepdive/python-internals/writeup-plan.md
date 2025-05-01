@@ -34,5 +34,31 @@
     - python interpreted lang
     - machine independant
     - python implememtaions we only focus on cpython
-- Overview
+
+- Simple flow 
+    - How python code runs
+    - bytecode
+    - Similarity and diff with JAva
+    **NOTE: Here will explain parser, compiler interpreter in brief not more than 5 lines for each but not any details**
+    - Bytecode 
+        - what is opcode
+        - how to generate bytecode
+        - some examples
+
+- Flow
+    - Theory How python runs
+        - parser
+            - lexer
+            - tokenizer
+            - parser
+            - grammer 
+            - pgen
+        - Compiler
+            - control flow
+            - assembler
+        - Interpreter
+        
+        **NOTE: Here we will explain how things happen. we will also give actual cod that run with function name but wont go deeper than that**
+
+    - what happens when `python yesy.py` is run
     - 
