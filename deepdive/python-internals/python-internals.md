@@ -9,33 +9,3 @@ This is very similar to Java. Only difference is, in Java, java->bytecode is don
 In python, the your `.py` code to `.pyc` and then this `.pyc` bytecode to execution happens in one pass. 
 
 When you run `python test.py` 
-
-# what should be the structure
-- Introduction
-- Overview python flow
-1. java - python similarities and differences
-2. python steps to interpretation
-    1. parser
-        lexer
-        tokenizer
-        parser
-    2. Compiler
-        control flow
-        assembler
-    3. Interpreter
-        Line by line go through each bytecode instruction
-3. What is bytecode/opcode instruction?
-    what is opcode
-    one example
-    documentation links
-3. Parser internals
-    grammer 
-    pgen
-    what lexer does and how
-    what tokenizer does and how
-    what parser does and how
-4. bytecode Compiler internals
-    what is ast?
-    ast to instruction
-5. Interpreter internals -- how this is different from JVM.
-6. New JIT -- what will change

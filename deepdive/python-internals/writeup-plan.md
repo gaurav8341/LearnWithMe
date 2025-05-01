@@ -28,3 +28,11 @@
     ast to instruction
 5. Interpreter internals -- how this is different from JVM.
 6. New JIT -- what will change
+
+
+- Intro
+    - python interpreted lang
+    - machine independant
+    - python implememtaions we only focus on cpython
+- Overview
+    - 
