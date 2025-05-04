@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>heap-ds</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<h1 id="heap-data-structures">Heap Data Structures</h1>
+<h2 id="what-is-heap">What is Heap:</h2>
+<p>MaxHeap is a complete binary tree where none of the child nodes are
+greater than the root(In case of Min heap the vice versa). Heap is
+implemented uing list.</p>
+<p>For the binary tree inlist format to be called as heap, it must be
+complete ie, All the nodes which are not leaf nodes should have both
+child. For Heap to be represented in a list of
+<strong>contiguous</strong> values, the left leaves must be populated
+first.</p>
+<p>How the trees are represented in a list format. The tree is traversed
+in a <strong>Breadth first</strong> traversal. The incoming Nodes are
+appended in list as per the traversal order.</p>
+<hr />
+<h2 id="representation-of-heap">Representation of Heap</h2>
+<h3 id="valid-max-heap">Valid Max Heap</h3>
+<ol type="1">
+<li><p><strong>Binary representation</strong></p>
+<pre class="mermaid"><code>
+graph TD;
+    subgraph &quot;Max Heap&quot;
+        A[10] --&gt; B[9];
+        A --&gt; C[8];
+        B --&gt; D[7];
+        B --&gt; E[6];
+        C --&gt; F[5];
+        C --&gt; G[4];
+    end
+</code></pre></li>
+<li><p><strong>List Representation</strong></p>
+<pre class="mermaid"><code>graph
+    subgraph &quot;List Representation&quot;;
+        A[10] --&gt; B[9] --&gt; C[8] --&gt; D[7] --&gt; E[6] --&gt; F[5] --&gt; G[4];
+    end</code></pre>
+<hr /></li>
+</ol>
+<h3 id="invalid-max-heap">Invalid Max Heap</h3>
+<ul>
+<li><p><strong>NOTE:</strong> In below example the node 11 does not
+adhre to idea of max heap, Parent value is smaller than child</p>
+<pre class="mermaid"><code>graph TD;
+    subgraph &quot;Invalid Max Heap&quot;
+        A[10] --&gt; B[9];
+        A --&gt; C[8];
+        B --&gt; D[7];
+        B --&gt; E[6];
+        C --&gt; F[5];
+        C --&gt; G[11];
+    end</code></pre></li>
+</ul>
+<hr />
+<h3 id="incomplete-binary-tree">Incomplete Binary Tree</h3>
+<p>All the examples stated above were complete trees, but what if tree
+is not complete. Even if tree is not complete it can still be called as
+a heap, provided it adhres to the principle of no child value exceeding
+the value of parent for max heap.</p>
+<ol type="1">
+<li><p><strong>Right Sided incomplete tree</strong></p>
+<pre class="mermaid"><code>graph TD;
+    subgraph &quot;R Incomplete Tree&quot;
+        A[10] --&gt; B[9];
+        A --&gt; C[8];
+        B --&gt; D[7];
+        B --&gt; E[6];
+        C --&gt; F[5];
+    end</code></pre></li>
+<li><p><strong>Left sided incomplete tree.</strong></p>
+<pre class="mermaid"><code>graph TD;
+    subgraph &quot;L Incomplete Tree&quot;
+        A[10] --&gt; B[9];
+        A --&gt; C[8];
+        C --&gt; F[5];
+    end</code></pre></li>
+</ol>
+<p><strong>Question</strong> : Which one of the above is valid heap?</p>
+<p><strong>Hint</strong> Think of the List Representation of both.</p>
+<p>If your answer was 1st then you are right. Let look at the the list
+representaion of both graphs to see why.</p>
+<ol type="1">
+<li><p><strong>Right Sided incomplete Tree</strong></p>
+<pre class="mermaid"><code>graph 
+    subgraph &quot;List Reprensation of R Tree&quot;
+        a[10]--&gt;b[9]--&gt;c[8]--&gt;d[7]--&gt;e[6]--&gt;f[5];
+    end
+</code></pre>
+<p>The values in the tree can be listed in a contiguos manner. Thats why
+the Right Sided incomplete tree is a valid max heap.</p></li>
+<li><p><strong>Left Sided Incomplete Tree</strong></p>
+<pre class="mermaid"><code>graph 
+    subgraph &quot;List Reprensation of L Tree&quot;
+        a[10]--&gt;b[9]--&gt;g[&quot;empty&quot;]--&gt;e[&quot;empty&quot;]--&gt;c[8]--&gt;f[5]
+    end</code></pre>
+<p>As shown, there are empty places in the list, so the left sided
+incomplete cant be called as a valid heap.</p></li>
+</ol>
+<hr />
+<h2 id="internals-of-heap">Internals of Heap</h2>
+<ul>
+<li><h3 id="node-representation">Node Representation:</h3>
+<p>Nodes are represented in Breadth first order from left to right in a
+list. Given the index of the element in list, how do we find its
+position in a heap. Below is the example.</p>
+<ul>
+<li><p><code>Left Node of i = 2*i+1</code></p></li>
+<li><p><code>Right node of i = 2*i+1</code></p></li>
+<li><p><code>Parent of i = i//2</code></p></li>
+</ul></li>
+<li><h3 id="heapify">Heapify</h3>
+<p>Heapify is operation to heapify any unsorted array.</p>
+<ul>
+<li><strong>Code</strong>:</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#insert code here</span></span></code></pre></div>
+<ul>
+<li><p><strong>Time Complexity</strong>: <code>log(n)</code></p></li>
+<li><p><strong>Space Complexity</strong>: <code>1</code></p></li>
+</ul></li>
+</ul>
+<p>Mention</p>
+<ol type="1">
+<li>heapify, heappop heappush</li>
+<li>shiftdown</li>
+<li>shift up</li>
+<li>heapsort</li>
+<li>time complexity of all these things.</li>
+<li>space complexity as well</li>
+</ol>
+<h2 id="python-implemenation">Python Implemenation</h2>
+<ol type="1">
+<li>mention &gt;&gt; 1 trick</li>
+<li>Limitations</li>
+<li>Maxheap or absence of it.</li>
+</ol>
+</body>
+</html>
