@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>TPU</title>
+  <title>tpu</title>
   <style>
 html {
 color: #1a1a1a;
@@ -164,9 +164,6 @@ vertical-align: middle;
 </style>
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">TPU</h1>
-</header>
 <h1 id="google-tpu">Google TPU</h1>
 <h2 id="tldr-notes-to-self">TLDR / Notes to self:</h2>
 <ul>
@@ -227,16 +224,16 @@ connected to the TPU v1 via DDR3-2133 interfaces. Weights are
 ‘pre-loaded’ onto these chips from the host computer’s memory via PCIe
 and can then be transferred into the ‘Weight FIFO’ memory ready for use
 by the matrix multiply unit.</li>
-<li>Matrix Multiply Unit: &gt; This is a ‘systolic’ array with 256 x 256
+<li>Matrix Multiply Unit: This is a ‘systolic’ array with 256 x 256
 matrix multiply/accumulate units that is fed by 256 ‘weight’ values from
 the top and 256 data inputs from the left.</li>
-<li>Accumulators: &gt; The results emerge from the systolic matrix unit
-at the bottom and are stored in ‘accumulator’ memory storage.</li>
-<li>Activation: &gt; The activation functions described in the neural
-network above are applied here.</li>
-<li>Unified Buffer / Systolic Data Setup: &gt; The results of applying
-the activation functions are stored in a ‘unified buffer’ memory where
-they are ready to be fed back as inputs to the Matrix Multiply Unit to
+<li>Accumulators: The results emerge from the systolic matrix unit at
+the bottom and are stored in ‘accumulator’ memory storage.</li>
+<li>Activation: The activation functions described in the neural network
+above are applied here.</li>
+<li>Unified Buffer / Systolic Data Setup: The results of applying the
+activation functions are stored in a ‘unified buffer’ memory where they
+are ready to be fed back as inputs to the Matrix Multiply Unit to
 calculate the values needed for the next layer.</li>
 </ol>
 <h3 id="tpu-v1-architecture">TPU v1 Architecture:</h3>

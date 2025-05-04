@@ -35,16 +35,17 @@ Rather than be tightly integrated with a CPU, to reduce the chances of delaying 
 
 ### Brief overview of each element
 
+
 1. DDR3 DRAM / Weight FIFO: 
     > Weights are stored in DDR3 RAM chips connected to the TPU v1 via DDR3-2133 interfaces. Weights are ‘pre-loaded’ onto these chips from the host computer’s memory via PCIe and can then be transferred into the ‘Weight FIFO’ memory ready for use by the matrix multiply unit.
 2. Matrix Multiply Unit:
-    > This is a ‘systolic’ array with 256 x 256 matrix multiply/accumulate units that is fed by 256 ‘weight’ values from the top and 256 data inputs from the left.
+    This is a ‘systolic’ array with 256 x 256 matrix multiply/accumulate units that is fed by 256 ‘weight’ values from the top and 256 data inputs from the left.
 3. Accumulators:
-    > The results emerge from the systolic matrix unit at the bottom and are stored in ‘accumulator’ memory storage.
+    The results emerge from the systolic matrix unit at the bottom and are stored in ‘accumulator’ memory storage.
 4. Activation:
-    > The activation functions described in the neural network above are applied here.
+    The activation functions described in the neural network above are applied here.
 5. Unified Buffer / Systolic Data Setup: 
-    > The results of applying the activation functions are stored in a ‘unified buffer’ memory where they are ready to be fed back as inputs to the Matrix Multiply Unit to calculate the values needed for the next layer.
+    The results of applying the activation functions are stored in a ‘unified buffer’ memory where they are ready to be fed back as inputs to the Matrix Multiply Unit to calculate the values needed for the next layer.
 
 ### TPU v1 Architecture:
 

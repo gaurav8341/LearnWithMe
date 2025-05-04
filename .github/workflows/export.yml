@@ -1,0 +1,68 @@
+# name: Export Markdown to HTML, PDF, DOCX
+
+# on:
+#   push:
+#     branches: [ main ]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v4
+
+#       - name: Install Pandoc
+#         run: sudo apt-get update && sudo apt-get install -y pandoc texlive-xetex
+
+#       - name: Install Mermaid CLI (optional)
+#         run: |
+#           npm install -g @mermaid-js/mermaid-cli
+#           pip install pandoc-mermaid
+
+#       - name: Create exports folder
+#         run: mkdir -p exports
+
+#       - name: Convert Markdown files
+#         run: |
+#           for file in Learnings/*.md; do
+#             BASENAME=$(basename "$file" .md)
+#             pandoc "$file" -o "exports/${BASENAME}.html" --embed-resources --standalone
+#             pandoc "$file" -o "exports/${BASENAME}.pdf"
+#             pandoc "$file" -o "exports/${BASENAME}.docx"
+#           done
+
+#       - name: Upload exports as artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: markdown-exports
+#           path: exports/
+
+
+name: Generate Blog HTML
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies (if any)
+        run: |
+          pip install -r requirements.txt || true
+          sudo apt-get install pandoc
+
+      - name: Run Python script
+        run: |
+          python automation/generate_html.py
