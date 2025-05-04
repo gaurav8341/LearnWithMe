@@ -1,49 +1,10 @@
-# name: Export Markdown to HTML, PDF, DOCX
-
-# on:
-#   push:
-#     branches: [ main ]
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout repo
-#         uses: actions/checkout@v4
-
-#       - name: Install Pandoc
-#         run: sudo apt-get update && sudo apt-get install -y pandoc texlive-xetex
-
-#       - name: Install Mermaid CLI (optional)
-#         run: |
-#           npm install -g @mermaid-js/mermaid-cli
-#           pip install pandoc-mermaid
-
-#       - name: Create exports folder
-#         run: mkdir -p exports
-
-#       - name: Convert Markdown files
-#         run: |
-#           for file in Learnings/*.md; do
-#             BASENAME=$(basename "$file" .md)
-#             pandoc "$file" -o "exports/${BASENAME}.html" --embed-resources --standalone
-#             pandoc "$file" -o "exports/${BASENAME}.pdf"
-#             pandoc "$file" -o "exports/${BASENAME}.docx"
-#           done
-
-#       - name: Upload exports as artifact
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: markdown-exports
-#           path: exports/
-
-
-name: Generate Blog HTML
+name: Build Blog Exports
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main  # trigger when main branch is updated
+  workflow_dispatch: # allow manual run
 
 jobs:
   build:
@@ -56,13 +17,25 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.x'
 
-      - name: Install dependencies (if any)
+      - name: Install dependencies
         run: |
-          pip install -r requirements.txt || true
-          sudo apt-get install pandoc
+          python -m pip install --upgrade pip
+          pip install requests
+          sudo apt-get update
+          sudo apt-get install -y pandoc
 
-      - name: Run Python script
+      - name: Run export script
+        run: python3 yourscript.py
+
+      - name: Commit and push exports
         run: |
-          python automation/generate_html.py
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add exports
+          
+          git diff --cached --quiet || git commit -m "Update blog exports"
+          
+          git push
