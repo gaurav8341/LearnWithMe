@@ -3,7 +3,7 @@
 import os
 import hashlib
 import json
-import requests
+# import requests
 import subprocess
 
 # Directories
