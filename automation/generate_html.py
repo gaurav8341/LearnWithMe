@@ -18,11 +18,6 @@ HASH_FILE = "hashes.json"
 BLOGS_JSON = "blogs.json"
 ALWAYS_CREATE = False #for testing
 
-def download_file(url, filename):
-    r = requests.get(url)
-    r.raise_for_status()
-    with open(filename, "wb") as f:
-        f.write(r.content)
 
 def compute_sha256(filename):
     h = hashlib.sha256()
@@ -31,23 +26,6 @@ def compute_sha256(filename):
             h.update(chunk)
     return h.hexdigest()
 
-# def generate_files(input_md, output_files):
-#     for output_type, output_file in output_files.items():
-#         cmd = [
-#                 "pandoc",
-#                 input_md,
-#                 "-o",
-#                 output_file,
-#                 "--resource-path=.:..:../static"
-#             ]
-        
-#         if output_type == "html":
-#             # output_html = output_file
-#             cmd.extend([ "--embed-resources", "--standalone"])
-#         subprocess.run(cmd, check=True)
-
-import os
-import subprocess
 
 def generate_files(input_md, output_files):
     input_md = os.path.abspath(input_md)
@@ -73,8 +51,6 @@ def generate_files(input_md, output_files):
 
         # Run pandoc from the md file's dir so relative images work
         subprocess.run(cmd, check=True, cwd=md_dir)
-
-
 
 if __name__=='__main__':
     # os.makedirs(CONTENT_DIR, exist_ok=True)

@@ -3,6 +3,8 @@
 # Navigate to your Git repository (replace with your actual path)
 cd ~/repos/LearnWithMe || exit
 
+git pull
+
 # Add all unstaged changes
 git add .
 
@@ -12,7 +14,6 @@ git commit -m "$commit_message"
 
 git fetch
 
-git pull
 # Push changes to the current branch
 git push 
 
