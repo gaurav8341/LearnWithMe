@@ -9,7 +9,7 @@
 
 Consider 2 matrices of dimention 2x2. To perform the matrix multiplication in systolic way it would as shown in figure below
 
-![Systollic matrix multiplication](../static/images/tpu/systolic-mm.webp "Systollic Matrix Multiplication")
+![Systollic matrix multiplication](../static/images/tpu/systolic-mm.png "Systollic Matrix Multiplication")
 
 It takes 4 steps to do 2x2 matrix multiplication. During starting and ending of the some of the MAC(Multiply/ Accumulate Unit) are not used.
 
@@ -25,7 +25,7 @@ Googles TPU are made to take advantage of this systollic array architecture. TPU
 ## TPUv1 Design
 
 
-![TPU v1 Architecture -- Simplified](../static/images/tpu/tpu-v1-arch.webp "TPU v1 Architecture -- Simplified")
+![TPU v1 Architecture -- Simplified](../static/images/tpu/tpu-v1-arch.png "TPU v1 Architecture -- Simplified")
 
 Initial V1 architecture was only used for inference of the neural networks. 
 
@@ -49,7 +49,7 @@ Rather than be tightly integrated with a CPU, to reduce the chances of delaying 
 
 ### TPU v1 Architecture:
 
-![TPU v1 Detailed Architecture](../static/images/tpu/tpu-v1-detailed-arch.webp "TPU v1 Detailed Architecture")
+![TPU v1 Detailed Architecture](../static/images/tpu/tpu-v1-detailed-arch.png "TPU v1 Detailed Architecture")
 
 - Instructions are sent from host by PCIe bus into an instruction buffer. 
 - Internal blocks are connected together by 256-byte wide paths. 
@@ -57,7 +57,7 @@ Rather than be tightly integrated with a CPU, to reduce the chances of delaying 
 - The Matrix unit produces one 256-element partial(in case of start and end where not all Macs are used./ tensor is not of size 256) sum per clock. 
 - When using a mix of 8-bit weights and 16-bit activations (or vice versa), the Matrix Unit computes at half-speed, and it computes at a quarter-speed when both are 16 bits. It reads and writes 256 values per clock cycle and can perform either a matrix multiply or a convolution.
 
-![TPU v1 Floor Plan](../static/images/tpu/tpu-v1-floor-plan.webp "TPU v1 Floor Plan")
+![TPU v1 Floor Plan](../static/images/tpu/tpu-v1-floor-plan.png "TPU v1 Floor Plan")
 
 
 ### Instruction Set:
