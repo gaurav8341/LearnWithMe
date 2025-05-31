@@ -60,5 +60,5 @@
         
         **NOTE: Here we will explain how things happen. we will also give actual cod that run with function name but wont go deeper than that**
 
-    - what happens when `python yesy.py` is run
-    - 
+    - what happens when `python test.py` is run
+    - show a generated opcode for `test.py` code
