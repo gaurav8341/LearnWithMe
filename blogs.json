@@ -82,5 +82,17 @@
     "tags": [],
     "active":false,
     "preview": "Tensor Processing Unit (TPU) is a type of application-specific integrated circuit (ASIC) developed by Google specifically for accelerating machine learning workloads."
+  },
+  {
+    "id": "django-cache",
+    "slug": "django-cache",
+    "title": "Django Cache Fundamentals Quick Note",
+    "content_type": "Learnings",
+    "repo_path": "Learnings/django-cache.md",
+    "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/django-cache.md",
+    "date": "Apr 29, 2025",
+    "tags": [],
+    "active":false,
+    "preview": "Django Cache Fundamentals"
   }
 ]
