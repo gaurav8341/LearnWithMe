@@ -77,6 +77,8 @@ graph LR
 6. **Protected Resource Response**
     The **Resource Server** validates the token, and serves the request if the token is valid
 
+To get the **Authorization Grant** from Resource Owner, the **Authorization Server** is usually used as intermediary.
+
 ## Resources
 
 1. (RFC 6749: The OAuth 2.0 Authorization Framework)[https://datatracker.ietf.org/doc/html/rfc6749]
@@ -92,3 +94,22 @@ graph LR
 - Scope
 - Authorization Bearer
 - Threat modelling
+
+## Rough Notes
+
+## Auth Grant type
+
+1. Auth code
+The client directs user(Resource Owner) to auth server to get auth code -- auth grant type, after getting auth code auth server redirects RO back to client. This is only for auth code grant type.
+
+Auth code gives ability to also authenticate the client. passes tokens to the client directly instead of user. (This is still visible to user, but as auth code is short lived its not an issue. some auth servers will also ask client id, secret and scope and client secret will not be visible to user)
+
+Auth code are intermediate creds using which you can get actual tokens
+
+here scope is checked, client creds are (authnticated and authorized)checked and validated 
+
+2. Implicit
+
+No auth code bs. directly access/refresh token.good for frontend only system ie systems which run on browser (extentions). 
+ 
+The authntication of client is not done
