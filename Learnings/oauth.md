@@ -81,3 +81,14 @@ graph LR
 
 1. (RFC 6749: The OAuth 2.0 Authorization Framework)[https://datatracker.ietf.org/doc/html/rfc6749]
 
+## TODO Research:
+
+- Read RFC 9700
+- Read OpenID Connect
+- Read RFC 6749
+    
+## Mention
+
+- Scope
+- Authorization Bearer
+- Threat modelling
