@@ -102,7 +102,31 @@ To get the **Authorization Grant** from Resource Owner, the **Authorization Serv
 1. Auth code
 The client directs user(Resource Owner) to auth server to get auth code -- auth grant type, after getting auth code auth server redirects RO back to client. This is only for auth code grant type.
 
-Auth code gives ability to also authenticate the client. passes tokens to the client directly instead of user. (This is still visible to user, but as auth code is short lived its not an issue. some auth servers will also ask client id, secret and scope and client secret will not be visible to user)
+Auth code gives ability to also authenticate the client. passes tokens to the client directly instead of user. 
+
+auth code, scope and client id is visible to user, but there also client auth happens also PKCE(Proof Key for Code Exchange).
+
+PKCE in short:
+
+    clinet generates a code verifier and generats code challenge from code verifier before initiating auth flow.
+
+    it passes code challenge to auth server along with code challenge method.
+
+    auth server saves code challeng and method.
+
+    if user authenticates, clint asks for token. it sends code verifier.
+
+    auth server from previous code challenge and method. Recalculates the code challenge from client sent code verifier. if prev. code challenge and newly generated code challenge are same then PKCE is passed.
+
+For private clients where the tokens are not passed to user, the Clinet id client secret can be used in place of PKCE.
+
+State can be used to avoid CSRF attacks
+
+CSRF (Cross-Site Request Forgery) attacks: Prevents an attacker from tricking a logged-in user into initiating an OAuth flow to the attacker's application but redirecting back to your application. If the state doesn't match the one your server initiated, you know the request wasn't legitimate from your app's perspective.
+
+Binding Request and Response: Ensures that the response (the authorization code) belongs to the request that your client originally sent.
+
+
 
 Auth code are intermediate creds using which you can get actual tokens
 
@@ -113,3 +137,25 @@ here scope is checked, client creds are (authnticated and authorized)checked and
 No auth code bs. directly access/refresh token.good for frontend only system ie systems which run on browser (extentions). 
  
 The authntication of client is not done
+
+-- this is avoided today
+
+3. RO password Creds
+
+directly uuse the user creds to get tokens. 
+
+-- not recommended
+
+4. Client Credentials
+
+authorization scope is limited to resources under control of client.
+
+When client is resource owner. 
+
+Machine to machine Communication. no other user.
+
+auth between two services through api. say communication between orders service and payment service.
+
+No refrech tokens provided.
+
+
