@@ -158,4 +158,17 @@ auth between two services through api. say communication between orders service 
 
 No refrech tokens provided.
 
+-------------------------------------------------------------
+
+HTTP Redirections:
+ 
+## Client Registrations:
+
+before Oauth to be enabled. Clint needs to be registered with Auth server. In this registration, clint type, redirect uri asre two main things required.
+
+Two types of clint based on the clients ability to maintain authenticity of client creds, 
+
+    1. Confidential
+    2. Public 
+
 
