@@ -172,3 +172,15 @@ Two types of clint based on the clients ability to maintain authenticity of clie
     2. Public 
 
 
+
+## Article Plan
+
+-- What is Oauth
+-- How is implemented
+    -- Entities
+    -- Auth Grant
+        -- grant type with their usecases
+    -- Auth Flow
+-- Threat modeliing
+    -- PKCE
+-- 
