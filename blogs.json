@@ -94,5 +94,17 @@
     "tags": [],
     "active":false,
     "preview": "Django Cache Fundamentals"
+  },
+  {
+    "id": "oauth-post",
+    "slug": "oauth-post",
+    "title": "OAuth 2.0: A Quick Note",
+    "content_type": "Learnings",
+    "repo_path": "Learnings/oauth-post.md",
+    "path": "https://raw.githubusercontent.com/gaurav8341/LearnWithMe/refs/heads/main/Learnings/outh-post.md",
+    "date": "Jul 07, 2025",
+    "tags": [],
+    "active":false,
+    "preview": "Oauth 2.0 is an open standard for access delegation, commonly used as a way to grant websites or applications limited access to user information without exposing passwords."
   }
 ]
