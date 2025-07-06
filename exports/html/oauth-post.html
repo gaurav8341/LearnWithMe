@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>oauth-post</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<h1 id="oauth">Oauth</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Oauth is a token based third party authentication protocol. Its
+little bit different than traditinal client server based authentication,
+where server has client authentication data stored and client gives that
+data to access the server. In Oauth model, the third party applications
+ask for certain resources on behalf of user without exposing user
+credentilas. Looking from user perspective, think of it as instead of
+remembering multiple passwords, you remember one user credential. This
+model makes the user sign in and sign up very easy. Lets look how it
+works. This authentication model is stateless so the client do not need
+to save the user sessions.</p>
+<h2 id="how-it-works">How it works?</h2>
+<h3 id="entities-in-oauth-2.0">Entities in Oauth 2.0</h3>
+<ol type="1">
+<li><strong>Resource Owner</strong>:
+<ul>
+<li>Owner of the resource</li>
+<li>is capable of granting access to the resource.</li>
+<li>When we try to login through google. then we are resource owner</li>
+</ul></li>
+<li><strong>Resource Server</strong>:
+<ul>
+<li>The server hosting the protected resources (e.g., Google’s API
+endpoints for Photos, Calendar, Drive).</li>
+<li>Capable of accepting and responding to protected resource requests
+using access tokens. It enforces access control based on the token’s
+validity and associated permissions.</li>
+</ul></li>
+<li><strong>Client</strong>:
+<ul>
+<li>Entity making resource request on behalf of resource owner along
+with its auth keys.</li>
+<li>The application (e.g., a website, mobile app, desktop application)
+making protected resource requests on behalf of the Resource Owner.</li>
+<li>It is identified by a <code>client_id</code> and may have a
+<code>client_secret</code> (for confidential clients).</li>
+</ul></li>
+<li><strong>Authorization Server</strong>:
+<ul>
+<li>Server issuing access tokens to client after authntication and
+authorization from Resource owner</li>
+<li>Authorization Server and Resource Server can be same.</li>
+</ul></li>
+</ol>
+<h3 id="protocol-flow">Protocol Flow</h3>
+<pre class="mermaid"><code>graph LR
+    subgraph Client
+        Client_Start(Client)
+    end
+
+    subgraph Resource Server
+        RS_Start(Resource Server)
+    end
+
+    subgraph Authorization Server
+        AS_Start(Authorization Server)
+    end
+
+
+    subgraph Resource Owner
+        RO_Start(Resource Owner)
+    end
+
+    Client_Start -- (1) Authorization Request --&gt; RO_Start
+    RO_Start -- (2) Authorization Grant --&gt; Client_Start
+
+    Client_Start -- (3) Authorization Grant --&gt; AS_Start
+    AS_Start -- (4) Access Token --&gt; Client_Start
+
+    Client_Start -- (5) Access Token --&gt; RS_Start
+    RS_Start -- (6) Protected Resource --&gt; Client_Start</code></pre>
+<ol type="1">
+<li><p><strong>Authorization Request</strong> Client asks for
+authorization from resource owner. It can be made directly or through
+<strong>Authorization Server</strong> as intermediary</p></li>
+<li><p><strong>Authorization Grant</strong> If authorization request is
+approved by Resource Owner, then a <strong>Authorization Grant</strong>
+credential is given to the client.</p></li>
+<li><p><strong>Access Token Request</strong> The Clint requests for
+Access Token using <strong>Authorization Grant</strong> to the
+<strong>Authorization Server</strong>.</p></li>
+<li><p><strong>Access Token Issue</strong> <strong>Authorization
+Server</strong> after checking the validity of the grant authenticated
+the client. If valid, then <strong>Access Token</strong> and
+<strong>Referesh Token</strong> is given to the client.</p></li>
+<li><p><strong>Protected Resource Request</strong> The
+<strong>Client</strong> uses the <strong>Access Token</strong> to get
+the resources it needs from <strong>Resource Server</strong>. I</p></li>
+<li><p><strong>Protected Resource Response</strong> The <strong>Resource
+Server</strong> validates the token, and serves the request if the token
+is valid</p></li>
+</ol>
+<p>To get the <strong>Authorization Grant</strong> from Resource Owner,
+the <strong>Authorization Server</strong> is usually used as
+intermediary.</p>
+<h3 id="some-important-considerations">Some important
+Considerations</h3>
+<ol type="1">
+<li><p><strong>Scope</strong>: What kind of resources the client access
+on behalf of <em>Resource Owner</em> needs to be properly defined. In
+normal user flow, this information is presented to the user in the
+consent screen, and the tokens issued to the application will be limited
+to the scopes granted. During Client registration with Authorization
+Server, the scope required by client is asked beforehand.</p></li>
+<li><p><strong>Redirect URI</strong>: During initial user consent phase,
+the <em>redirect uri</em> is given. After successfully authorizing the
+client application, the user should be redirected to the client page.
+This is also important in view of security, as this uri is sent along
+side the auth grant code. To make sure this auth grant code is given to
+intended client application, the <em>redirect uri</em> is matched with
+the predefined client <em>redirect uri</em>. If the <em>redirect
+uri</em> does not match with the initial client given uri, the
+authentication fails.</p></li>
+<li><p><strong>Tokens</strong>: After successfull authentication, the
+usually two tokens are given, <em>Access Token</em> and <em>Refresh
+Token</em>. These JWT tokens have header which contains metadata about
+the token. The payload contains certain user info along with the expiry
+date of token. The Signature is created out of signing Header and
+Payload. Either HMAC algorithm can be used which uses single secret key
+or RSA can be used which uses public private key pair to generate
+signature. The Public keys are made available by Authorization
+Server.</p>
+<p>After getting the tokens, the client checks for the access token in
+every request header, it denies the request if its not present or is
+expired. The Refresh token which has a longer expiry time, can be used
+to get new version of tokens.</p></li>
+<li><p><strong>Authorization grant</strong>: After the Resource Owner
+approves the client request, the <em>Resource Server</em> provies the
+Authorization grant. Using this Authorization grant, the client can get
+the tokens from <em>Authorization Server</em>.</p>
+<p>There are four types of Authorization grant</p>
+<ul>
+<li><em>Authorization Code</em>: The auth code is attached with
+<em>redirect URI</em>, the client gets the auth code from <em>redirect
+uri</em> and sends the token request to <em>Authorization Server</em>.
+This gives the ability to also authenticate the client. This is most
+commonly used today.</li>
+<li><em>Implicit</em>: The tokens are directly passed to the user
+itself. This is not recommended.</li>
+<li><em>Resource Owner Password Credential</em>: Resource Owners
+Password is shared with the client directly. This is not considered a
+safe practice and is avoided.</li>
+<li><em>Client Credential</em>: When Client himself is resource owner
+then this approach is used. This is used for machine to machine
+authentication. Authentication between two services through APIs.
+<em>Refresh Token</em> is not included in this type.</li>
+</ul></li>
+<li><p><strong>Proof Key for Code Exchange</strong>: There is possiblity
+that someone intecepts the Auth Code, and uses that auth code to
+generate the tokens. To avoid the inteception of the Auth Code attack,
+this protocol is used.</p></li>
+</ol>
+<pre class="mermaid"><code>graph TD
+subgraph Authz Server
+    AuthzEndpoint(Authorization Endpoint)
+    TokenEndpoint(Token Endpoint)
+end
+
+subgraph Client
+        Client_Start(Client)
+end
+
+
+Client_Start -- (A) Authorization Request&lt;br&gt;+ t(code_verifier), t_m --&gt; AuthzEndpoint
+AuthzEndpoint -- (B) Authorization Code --&gt; Client_Start
+Client_Start -- (C) Access Token Request&lt;br&gt;+ code_verifier --&gt; TokenEndpoint
+TokenEndpoint -- (D) Access Token --&gt; Client_Start</code></pre>
+<ol type="1">
+<li><p>The client creates and records a secret named the “code_verifier”
+and derives a transformed version “t(code_verifier)” (referred to as the
+<code>code_challenge</code>), which is sent in the OAuth 2.0
+Authorization Request along with the transformation method
+<code>t_m</code>.</p></li>
+<li><p>The Authorization Endpoint responds as usual but records
+<code>t(code_verifier)</code> and the transformation method.</p></li>
+<li><p>The client then sends the authorization code in the Access Token
+Request as usual but includes the “code_verifier” secret generated at
+(A).</p></li>
+<li><p>The authorization server transforms “code_verifier” and compares
+it to <code>t(code_verifier)</code> from (B). Access is denied if they
+are not equal.</p></li>
+</ol>
+<p>An attacker who intercepts the authorization code at (B) is unable to
+redeem it for an access token, as they are not in possession of the
+<code>code_verifier</code> secret.</p>
+<h2 id="resources">Resources</h2>
+<h2 id="resources-1">Resources</h2>
+<ol type="1">
+<li><p>(RFC 6749: The OAuth 2.0 Authorization
+Framework)[https://datatracker.ietf.org/doc/html/rfc6749]</p></li>
+<li><p>(RFC 7636: Proof Key for Code Exchange by OAuth Public
+Clients)[https://datatracker.ietf.org/doc/html/rfc7636]</p></li>
+</ol>
+</body>
+</html>
