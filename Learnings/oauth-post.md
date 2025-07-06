@@ -134,8 +134,6 @@ TokenEndpoint -- (D) Access Token --> Client_Start
 
 An attacker who intercepts the authorization code at (B) is unable to redeem it for an access token, as they are not in possession of the `code_verifier` secret.
 
-## Resources
-
 
 ## Resources
 
