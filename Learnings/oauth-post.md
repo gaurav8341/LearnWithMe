@@ -117,7 +117,6 @@ subgraph Client
         Client_Start(Client)
 end
 
-
 Client_Start -- (A) Authorization Request<br>+ t(code_verifier), t_m --> AuthzEndpoint
 AuthzEndpoint -- (B) Authorization Code --> Client_Start
 Client_Start -- (C) Access Token Request<br>+ code_verifier --> TokenEndpoint
