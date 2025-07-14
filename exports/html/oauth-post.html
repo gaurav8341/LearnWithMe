@@ -164,26 +164,30 @@ vertical-align: middle;
 </style>
 </head>
 <body>
-<h1 id="oauth">Oauth</h1>
+<h1 id="oauth-2.0">OAuth 2.0</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Oauth is a token based third party authentication protocol. Its
-little bit different than traditinal client server based authentication,
-where server has client authentication data stored and client gives that
-data to access the server. In Oauth model, the third party applications
-ask for certain resources on behalf of user without exposing user
-credentilas. Looking from user perspective, think of it as instead of
-remembering multiple passwords, you remember one user credential. This
-model makes the user sign in and sign up very easy. Lets look how it
-works. This authentication model is stateless so the client do not need
-to save the user sessions.</p>
+<p>OAuth 2.0 is a token based third party authorization protocol. Its
+little bit different than traditional client server based authorization,
+where server has client authorization data stored and client gives that
+data to access the server. In OAuth 2.0 model, the third party
+applications ask for certain resources on behalf of user without
+exposing user credentials. Looking from user perspective, think of it as
+instead of remembering multiple passwords, you remember one user
+credential. This model makes the user sign in and sign up very easy.
+Lets look how it works. This authorization model is stateless so the
+client do not need to save the user sessions. (Note: While this protocol
+is stateless for the client, the Authorization Server maintains some
+data such as Authorization Codes, Code Verifiers for client
+authentication, and Refresh Tokens.)</p>
 <h2 id="how-it-works">How it works?</h2>
-<h3 id="entities-in-oauth-2.0">Entities in Oauth 2.0</h3>
+<h3 id="entities-in-oauth-2.0">Entities in OAuth 2.0</h3>
 <ol type="1">
 <li><strong>Resource Owner</strong>:
 <ul>
 <li>Owner of the resource</li>
 <li>is capable of granting access to the resource.</li>
-<li>When we try to login through google. then we are resource owner</li>
+<li>When we try to login through Google, then we are the resource
+owner.</li>
 </ul></li>
 <li><strong>Resource Server</strong>:
 <ul>
@@ -204,11 +208,12 @@ making protected resource requests on behalf of the Resource Owner.</li>
 </ul></li>
 <li><strong>Authorization Server</strong>:
 <ul>
-<li>Server issuing access tokens to client after authntication and
-authorization from Resource owner</li>
-<li>Authorization Server and Resource Server can be same.</li>
+<li>Server issuing access tokens to client after authentication and
+authorization from Resource owner.</li>
+<li>Authorization Server and Resource Server can be the same.</li>
 </ul></li>
 </ol>
+<hr />
 <h3 id="protocol-flow">Protocol Flow</h3>
 <pre class="mermaid"><code>graph LR
     subgraph Client
@@ -238,85 +243,95 @@ authorization from Resource owner</li>
     RS_Start -- (6) Protected Resource --&gt; Client_Start</code></pre>
 <ol type="1">
 <li><p><strong>Authorization Request</strong> Client asks for
-authorization from resource owner. It can be made directly or through
-<strong>Authorization Server</strong> as intermediary</p></li>
-<li><p><strong>Authorization Grant</strong> If authorization request is
-approved by Resource Owner, then a <strong>Authorization Grant</strong>
-credential is given to the client.</p></li>
-<li><p><strong>Access Token Request</strong> The Clint requests for
-Access Token using <strong>Authorization Grant</strong> to the
+authorization from the resource owner. It can be made directly or
+through the <strong>Authorization Server</strong> as an
+intermediary.</p></li>
+<li><p><strong>Authorization Grant</strong> If the authorization request
+is approved by the Resource Owner, then an <strong>Authorization
+Grant</strong> credential is given to the client.</p></li>
+<li><p><strong>Access Token Request</strong> The Client requests for an
+Access Token using the <strong>Authorization Grant</strong> to the
 <strong>Authorization Server</strong>.</p></li>
-<li><p><strong>Access Token Issue</strong> <strong>Authorization
-Server</strong> after checking the validity of the grant authenticated
-the client. If valid, then <strong>Access Token</strong> and
-<strong>Referesh Token</strong> is given to the client.</p></li>
+<li><p><strong>Access Token Issue</strong> The <strong>Authorization
+Server</strong> after checking the validity of the grant and
+authenticating the client. If valid, then an <strong>Access
+Token</strong> and <strong>Refresh Token</strong> is given to the
+client.</p></li>
 <li><p><strong>Protected Resource Request</strong> The
 <strong>Client</strong> uses the <strong>Access Token</strong> to get
-the resources it needs from <strong>Resource Server</strong>. I</p></li>
+the resources it needs from the <strong>Resource
+Server</strong>.</p></li>
 <li><p><strong>Protected Resource Response</strong> The <strong>Resource
 Server</strong> validates the token, and serves the request if the token
-is valid</p></li>
+is valid.</p></li>
 </ol>
-<p>To get the <strong>Authorization Grant</strong> from Resource Owner,
-the <strong>Authorization Server</strong> is usually used as
+<p>To get the <strong>Authorization Grant</strong> from the Resource
+Owner, the <strong>Authorization Server</strong> is usually used as an
 intermediary.</p>
-<h3 id="some-important-considerations">Some important
+<hr />
+<h3 id="some-important-considerations">Some Important
 Considerations</h3>
-<ol type="1">
-<li><p><strong>Scope</strong>: What kind of resources the client access
-on behalf of <em>Resource Owner</em> needs to be properly defined. In
-normal user flow, this information is presented to the user in the
-consent screen, and the tokens issued to the application will be limited
-to the scopes granted. During Client registration with Authorization
-Server, the scope required by client is asked beforehand.</p></li>
-<li><p><strong>Redirect URI</strong>: During initial user consent phase,
-the <em>redirect uri</em> is given. After successfully authorizing the
-client application, the user should be redirected to the client page.
-This is also important in view of security, as this uri is sent along
-side the auth grant code. To make sure this auth grant code is given to
-intended client application, the <em>redirect uri</em> is matched with
-the predefined client <em>redirect uri</em>. If the <em>redirect
-uri</em> does not match with the initial client given uri, the
-authentication fails.</p></li>
-<li><p><strong>Tokens</strong>: After successfull authentication, the
-usually two tokens are given, <em>Access Token</em> and <em>Refresh
-Token</em>. These JWT tokens have header which contains metadata about
-the token. The payload contains certain user info along with the expiry
-date of token. The Signature is created out of signing Header and
-Payload. Either HMAC algorithm can be used which uses single secret key
-or RSA can be used which uses public private key pair to generate
-signature. The Public keys are made available by Authorization
-Server.</p>
-<p>After getting the tokens, the client checks for the access token in
-every request header, it denies the request if its not present or is
-expired. The Refresh token which has a longer expiry time, can be used
-to get new version of tokens.</p></li>
-<li><p><strong>Authorization grant</strong>: After the Resource Owner
-approves the client request, the <em>Resource Server</em> provies the
-Authorization grant. Using this Authorization grant, the client can get
-the tokens from <em>Authorization Server</em>.</p>
-<p>There are four types of Authorization grant</p>
+<h4 id="scope"><strong>Scope</strong>:</h4>
+<p>What kind of resources the client needs to access on behalf of the
+<em>Resource Owner</em> needs to be properly defined. In a normal user
+flow, this information is presented to the user in the consent screen,
+and the tokens issued to the application will be limited to the scopes
+granted. During Client registration with the Authorization Server, the
+scope required by the client is asked beforehand.</p>
+<h4 id="redirect-uri"><strong>Redirect URI</strong>:</h4>
+<p>During the initial user consent phase, the <em>redirect URI</em> is
+given. After successfully authorizing the client application, the user
+should be redirected to the client page. This is also important for
+security, as this URI is sent alongside the auth grant code. To make
+sure this auth grant code is given to the intended client application,
+the <em>redirect URI</em> is matched with the predefined client
+<em>redirect URI</em>. If the <em>redirect URI</em> does not match with
+the initially provided client URI, the authorization fails.</p>
+<h4 id="tokens"><strong>Tokens</strong>:</h4>
+<p>After successful authorization, usually two tokens are given: an
+<em>Access Token</em> and a <em>Refresh Token</em>. These JWT tokens
+have a header which contains metadata about the token. The payload
+contains certain user info along with the expiry date of the token. The
+Signature is created out of signing the Header and Payload. Either the
+HMAC algorithm can be used which uses a single secret key, or RSA can be
+used which uses a public-private key pair to generate the signature. The
+Public keys are made available by the Authorization Server.</p>
+<p>After getting the tokens, the client uses the access token by
+attaching it to the request header to get any resource from the Resource
+Server. The <strong>Resource Server</strong> checks the validity of the
+request; it denies the request if the access token is not present or is
+expired. The Refresh token, which has a longer expiry time, can be used
+to get new versions of tokens.</p>
+<h4 id="authorization-grant"><strong>Authorization Grant</strong>:</h4>
+<p>After the Resource Owner approves the client request, the
+<strong>Authorization Server provides the Authorization grant</strong>.
+Using this Authorization grant, the client can get the tokens from the
+<strong>Authorization Server</strong>.</p>
+<p>There are four types of Authorization grants:</p>
 <ul>
-<li><em>Authorization Code</em>: The auth code is attached with
-<em>redirect URI</em>, the client gets the auth code from <em>redirect
-uri</em> and sends the token request to <em>Authorization Server</em>.
-This gives the ability to also authenticate the client. This is most
-commonly used today.</li>
-<li><em>Implicit</em>: The tokens are directly passed to the user
-itself. This is not recommended.</li>
-<li><em>Resource Owner Password Credential</em>: Resource Owners
-Password is shared with the client directly. This is not considered a
-safe practice and is avoided.</li>
-<li><em>Client Credential</em>: When Client himself is resource owner
-then this approach is used. This is used for machine to machine
-authentication. Authentication between two services through APIs.
-<em>Refresh Token</em> is not included in this type.</li>
-</ul></li>
-<li><p><strong>Proof Key for Code Exchange</strong>: There is possiblity
-that someone intecepts the Auth Code, and uses that auth code to
-generate the tokens. To avoid the inteception of the Auth Code attack,
-this protocol is used.</p></li>
-</ol>
+<li><strong>Authorization Code</strong>: The auth code is attached with
+the <em>redirect URI</em>. The client gets the auth code from the
+<em>redirect URI</em> and sends the token request to the
+<em>Authorization Server</em>. This gives the ability to also
+authenticate the client. This is most commonly used today.</li>
+<li><strong>Implicit</strong>: The tokens are directly passed to the
+user itself. This is not recommended.</li>
+<li><strong>Resource Owner Password Credential</strong>: The Resource
+Owner’s Password is shared with the client directly. This is not
+considered a safe practice and is avoided.</li>
+<li><strong>Client Credential</strong>: The Client Credential Grant is
+used for scenarios where the client application itself is the entity
+requesting access to protected resources. It acts on its own behalf,
+rather than impersonating or acting on behalf of an end-user (Resource
+Owner). This grant type is ideal for machine-to-machine interactions,
+such as one service calling another’s API. Refresh Token is not included
+in this type.</li>
+</ul>
+<h4 id="proof-key-for-code-exchange"><strong>Proof Key for Code
+Exchange</strong>:</h4>
+<p>There is a possibility that someone intercepts the Auth Code and uses
+that auth code to generate the tokens. To avoid the interception of the
+Auth Code attack, this protocol is used.</p>
 <pre class="mermaid"><code>graph TD
 subgraph Authz Server
     AuthzEndpoint(Authorization Endpoint)
@@ -332,8 +347,9 @@ AuthzEndpoint -- (B) Authorization Code --&gt; Client_Start
 Client_Start -- (C) Access Token Request&lt;br&gt;+ code_verifier --&gt; TokenEndpoint
 TokenEndpoint -- (D) Access Token --&gt; Client_Start</code></pre>
 <ol type="1">
-<li><p>The client creates and records a secret named the “code_verifier”
-and derives a transformed version “t(code_verifier)” (referred to as the
+<li><p>The client creates and records a secret named the
+<code>code_verifier</code> and derives a transformed version
+<code>t(code_verifier)</code> (referred to as the
 <code>code_challenge</code>), which is sent in the OAuth 2.0
 Authorization Request along with the transformation method
 <code>t_m</code>.</p></li>
@@ -342,19 +358,21 @@ Authorization Request along with the transformation method
 <li><p>The client then sends the authorization code in the Access Token
 Request as usual but includes the “code_verifier” secret generated at
 (A).</p></li>
-<li><p>The authorization server transforms “code_verifier” and compares
-it to <code>t(code_verifier)</code> from (B). Access is denied if they
-are not equal.</p></li>
+<li><p>The authorization server transforms <code>code_verifier</code>
+and compares it to <code>t(code_verifier)</code> from (B). Access is
+denied if they are not equal.</p></li>
 </ol>
 <p>An attacker who intercepts the authorization code at (B) is unable to
 redeem it for an access token, as they are not in possession of the
 <code>code_verifier</code> secret.</p>
+<hr />
 <h2 id="resources">Resources</h2>
 <ol type="1">
-<li><p>(RFC 6749: The OAuth 2.0 Authorization
-Framework)[https://datatracker.ietf.org/doc/html/rfc6749]</p></li>
-<li><p>(RFC 7636: Proof Key for Code Exchange by OAuth Public
-Clients)[https://datatracker.ietf.org/doc/html/rfc7636]</p></li>
+<li><p><a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC 6749:
+The OAuth 2.0 Authorization Framework</a></p></li>
+<li><p><a href="https://datatracker.ietf.org/doc/html/rfc7636">RFC 7636:
+Proof Key for Code Exchange by OAuth Public Clients</a></p></li>
 </ol>
+<!-- end list -->
 </body>
 </html>
