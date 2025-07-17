@@ -184,3 +184,10 @@ Two types of clint based on the clients ability to maintain authenticity of clie
 -- Threat modeliing
     -- PKCE
 -- 
+
+## OpenID 
+
+While oauth is authorization protocol, openID is built on top of Oauth which also provides capabilities to do the authentication. It enables clients to verify the identity of user using authntication performed by Authorization server. 
+
+Open Id Connect
+    - Identity layer on top of oauth 2.0 
